@@ -87,11 +87,10 @@ const QRModal = ({ handleOpenCamera, handleCloseCamera, cameraActive, onScanSucc
               </div>
             ) : (
               <div>
-                <div
-                  ref={scannerRef}
-                  id="qr-scanner-container"
-                  className="qr-scanner-wrapper"
-                ></div>
+                <div className="qr-scanner-wrapper">
+                  <div ref={scannerRef} id="qr-scanner-container" />
+                  <div className="qr-overlay"></div>
+                </div>
                 <div className="bg-light rounded-3 p-3">
                   <p className="text-muted mb-0 small d-flex align-items-center justify-content-center">
                     <span className="spinner-border spinner-border-sm me-2" role="status"></span>

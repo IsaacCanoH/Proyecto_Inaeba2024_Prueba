@@ -1,15 +1,44 @@
+/* QRModal.css */
 .qr-scanner-wrapper {
   width: 100%;
-  max-height: 100%;
-  aspect-ratio: 4/3;
-  border-radius: 0.5rem;
-  overflow: hidden;
+  height: auto;
+  max-height: 60vh;
+  aspect-ratio: 1 / 1;
   position: relative;
+  overflow: hidden;
+  border-radius: 12px;
 }
 
 #qr-scanner-container > video {
   width: 100% !important;
-  height: auto !important;
+  height: 100% !important;
   object-fit: cover;
-  transform: rotateY(180deg); /* invierte horizontalmente */
+  transform: rotateY(180deg); /* Corrige espejo en algunas cámaras */
+}
+
+.qr-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 250px;
+  height: 250px;
+  transform: translate(-50%, -50%);
+  box-shadow:
+    0 0 0 2px #00ff00, /* marco verde cuando se detecte QR */
+    inset 0 0 0 2px rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  pointer-events: none;
+  z-index: 2;
+}
+
+@media (max-width: 576px) {
+  .qr-scanner-wrapper {
+    max-height: 50vh;
+    aspect-ratio: 1 / 1;
+  }
+
+  .qr-overlay {
+    width: 180px;
+    height: 180px;
+  }
 }
