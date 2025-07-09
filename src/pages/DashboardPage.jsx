@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom"
 import DashboardHeader from "../components/Empleado/DashboardHeader"
 import DashboardTabs from "../components/Empleado/DashboardTabs"
 import QRModal from "../components/Empleado/QRModal"
+import PINModal from "../components/Empleado/PINModal"
 import VerificationModal from "../components/Empleado/VerificationModal"
 import IncidenciaModal from "../components/Empleado/IncidenciaModal"
 import styles from "../styles/dashboard.module.css"
@@ -180,6 +181,19 @@ const DashboardPage = () => {
     cargarAsistencias()
   }, [usuario, isOffline])
 
+  // ---------------------------- Detección de dispositivo ----------------------------
+  const esDispositivoMovil = () => {
+    return /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent)
+  }
+
+  const registrarAsistencia = () => {
+    if (esDispositivoMovil()) {
+      handleOpenCamera()
+    } else {
+      setShowPINModal(true)
+    }
+  }
+
   // ---------------------------- Modal QR ----------------------------
   const [showQRModal, setShowQRModal] = useState(false)
   const [cameraActive, setCameraActive] = useState(false)
@@ -199,6 +213,34 @@ const DashboardPage = () => {
     showSuccess("Código QR detectado correctamente")
     // Aquí puedes agregar lógica para validar el QR y enviar asistencia
   }, [showSuccess])
+
+  // ---------------------------- Modal PIN ----------------------------
+  const [showPINModal, setShowPINModal] = useState(false)
+  const pinInputsRef = [useRef(), useRef(), useRef(), useRef()]
+
+  const handleChangePIN = (index, e) => {
+    const value = e.target.value
+    if (/^\d$/.test(value)) {
+      if (index < 3) {
+        pinInputsRef[index + 1].current.focus()
+      }
+    } else {
+      e.target.value = ""
+    }
+  }
+
+  const handleKeyDownPIN = (index, e) => {
+    if (e.key === "Backspace" && e.target.value === "" && index > 0) {
+      pinInputsRef[index - 1].current.focus()
+    }
+  }
+
+  const handleSubmitPINModal = () => {
+    const pin = pinInputsRef.map(ref => ref.current.value).join("")
+    console.log("PIN ingresado:", pin)
+    showSuccess("PIN ingresado correctamente")
+    setShowPINModal(false)
+  }
 
 
   // ---------------------------- Modal Incidencia ----------------------------
@@ -261,6 +303,7 @@ const DashboardPage = () => {
   }
 
   // ---------------------------- Render ----------------------------
+
   return (
     <div className="bg-light min-vh-100">
       <DashboardHeader
@@ -287,6 +330,7 @@ const DashboardPage = () => {
           estadisticas={estadisticas}
           setShowIncidenciaModal={setShowIncidenciaModal}
           usuario={usuario}
+          registrarAsistencia={registrarAsistencia}
           setShowQRModal={setShowQRModal}
           isOffline={isOffline}
           styles={styles}
@@ -303,6 +347,15 @@ const DashboardPage = () => {
         />
       )}
 
+      {showPINModal && (
+        <PINModal
+          handleClose={() => setShowPINModal(false)}
+          handleSubmitPIN={handleSubmitPINModal}
+          inputsRef={pinInputsRef}
+          handleChange={handleChangePIN}
+          handleKeyDown={handleKeyDownPIN}
+        />
+      )}
 
       {showIncidenciaModal && (
         <IncidenciaModal

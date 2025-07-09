@@ -5,9 +5,9 @@ const DashboardTabs = ({
   setActiveTab,
   historialAsistencias,
   estadisticas,
-  setShowQRModal,
   setShowIncidenciaModal,
   usuario,
+  registrarAsistencia,
   isOffline,
   styles,
 }) => {
@@ -147,7 +147,7 @@ const DashboardTabs = ({
           </div>
 
           <div className="d-flex gap-2 flex-column flex-sm-row">
-            <button className="btn btn-primary px-4 py-2 d-flex align-items-center justify-content-center" onClick={() => setShowQRModal(true)}>
+            <button className="btn btn-primary px-4 py-2 d-flex align-items-center justify-content-center" onClick={registrarAsistencia}>
               <Camera size={18} className="me-2" />
               Registrar Asistencia
             </button>
