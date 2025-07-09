@@ -9,7 +9,7 @@ const QRModal = ({ handleOpenCamera, handleCloseCamera, cameraActive, onScanSucc
 
   useEffect(() => {
     if (cameraActive && scannerRef.current && !html5QrCodeRef.current) {
-      const config = { fps: 10, qrbox: { width: 250, height: 250 } }
+      const config = { fps: 10, qrbox: { width: 230, height: 230 } }
 
       html5QrCodeRef.current = new Html5Qrcode(scannerRef.current.id)
 
@@ -89,7 +89,6 @@ const QRModal = ({ handleOpenCamera, handleCloseCamera, cameraActive, onScanSucc
               <div>
                 <div className="qr-scanner-wrapper">
                   <div ref={scannerRef} id="qr-scanner-container" />
-                  <div className="qr-overlay"></div>
                 </div>
                 <div className="bg-light rounded-3 p-3">
                   <p className="text-muted mb-0 small d-flex align-items-center justify-content-center">

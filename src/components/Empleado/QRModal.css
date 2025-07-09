@@ -31,23 +31,9 @@
   width: 100% !important;
   height: 100% !important;
   object-fit: cover;
-  transform: rotateY(180deg);
+  transform: none;
 }
 
-.qr-overlay {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 300px;
-  height: 300px;
-  transform: translate(-50%, -50%);
-  box-shadow:
-    0 0 0 3px #00ff00,
-    inset 0 0 0 3px rgba(255, 255, 255, 0.25);
-  border-radius: 12px;
-  pointer-events: none;
-  z-index: 2;
-}
 
 @media (max-width: 576px) {
   .qr-scanner-wrapper {
@@ -56,10 +42,5 @@
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-
-  .qr-overlay {
-    width: 260px;
-    height: 260px;
   }
 }
