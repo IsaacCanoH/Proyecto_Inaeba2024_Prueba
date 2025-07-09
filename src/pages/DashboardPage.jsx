@@ -278,15 +278,8 @@ const DashboardPage = () => {
       formData.append("archivos", file)
     })
 
-    const datosTransformados = {
-      usuario_id: usuario?.empleado_id,
-      tipo_incidencia: incidenciaForm.tipo,
-      descripcion: incidenciaForm.descripcion,
-      fecha_incidencia: incidenciaForm.fecha_incidencia,
-    }
-
     try {
-      await crearIncidencia(datosTransformados)
+      await crearIncidencia(formData)
 
       showSuccess("Incidencia registrada correctamente")
       setShowIncidenciaModal(false)
