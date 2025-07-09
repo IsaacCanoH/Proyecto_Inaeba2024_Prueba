@@ -1,0 +1,15 @@
+.qr-scanner-wrapper {
+  width: 100%;
+  max-height: 100%;
+  aspect-ratio: 4/3;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  position: relative;
+}
+
+#qr-scanner-container > video {
+  width: 100% !important;
+  height: auto !important;
+  object-fit: cover;
+  transform: rotateY(180deg); /* invierte horizontalmente */
+}

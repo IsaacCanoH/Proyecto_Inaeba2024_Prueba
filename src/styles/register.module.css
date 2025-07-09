@@ -1,0 +1,145 @@
+.header-main {
+  width: 100%;
+  background-color: #0d6efd !important;
+  padding: 1.3rem 0 !important;
+}
+
+.header-main h1 {
+  font-size: 2.0rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: white;
+}
+
+.header-main p {
+  font-size: 1rem;
+  margin: 0;
+  color: white;
+  opacity: 0.95;
+}
+
+.card {
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  max-width: 100%;
+}
+
+.form-control:focus,
+.form-select:focus,
+.form-check-input:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+.btn-primary {
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #0b5ed7;
+  border-color: #0a58ca;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.card h5 {
+  border-bottom: 2px solid #e9ecef;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem !important;
+}
+
+.error-message {
+  color: #dc3545;
+  font-size: 0.875rem;
+  font-weight: 500;
+  animation: fadeInError 0.3s ease-in-out;
+}
+
+@media (max-width: 576px) {
+  .header-main h1 {
+    font-size: 1.8rem;
+  }
+
+  .header-main p {
+    font-size: 0.9rem;
+  }
+
+  .header-main {
+    padding: 1.5rem 0 !important;
+  }
+
+  .card {
+    border-radius: 8px;
+    margin: 0 !important;
+  }
+
+  .form-control,
+  .form-select,
+  .input-group-text {
+    font-size: 16px;
+  }
+
+  .btn-primary:hover {
+    transform: none;
+  }
+
+  .card h5 {
+    font-size: 1rem;
+  }
+
+  .error-message {
+    font-size: 0.8rem;
+  }
+}
+
+@media (min-width: 577px) and (max-width: 991px) {
+  .header-main h1 {
+    font-size: 2.2rem;
+  }
+
+  .header-main p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-height: 700px) and (max-width: 991px) {
+  .header-main {
+    padding: 1rem 0 !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .card-body {
+    padding: 3rem !important;
+  }
+}
+
+@media (min-width: 992px) {
+  .card-body {
+    padding: 4rem !important;
+  }
+}
+
+.form-select {
+  background-position: right 0.75rem center;
+}
+
+.input-group-text {
+  min-width: 45px;
+  justify-content: center;
+}
+
+.mb-4:not(:last-child) {
+  border-bottom: 1px solid #f8f9fa;
+  padding-bottom: 1.5rem;
+}
+
+.min-vh-100 {
+  background-color: #f8f9fa;
+}

@@ -1,0 +1,202 @@
+/* ================================
+   BOTONES
+================================== */
+.btn-primary {
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #0b5ed7;
+  border-color: #0a58ca;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(13, 110, 253, 0.3);
+}
+
+.btn-outline-primary {
+  border-color: #0d6efd;
+  color: #0d6efd;
+  transition: all 0.3s ease;
+}
+
+.btn-outline-primary:hover {
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(13, 110, 253, 0.3);
+}
+
+/* ================================
+   TABS
+================================== */
+.nav-tabs .nav-link {
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.nav-tabs .nav-link.active {
+  border-radius: 8px;
+  border: none !important;
+}
+
+.nav-tabs .nav-link:hover {
+  background-color: rgba(13, 110, 253, 0.05);
+  border: none;
+}
+
+.tabsContainer::-webkit-scrollbar {
+  height: 4px;
+}
+
+.tabsContainer::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.tabsContainer::-webkit-scrollbar-thumb {
+  background: #0d6efd;
+  border-radius: 2px;
+}
+
+/* ================================
+   TARJETAS Y LISTAS
+================================== */
+.card {
+  border-radius: 16px;
+  transition: all 0.3s ease;
+}
+
+.list-group-item:hover {
+  background-color: rgba(13, 110, 253, 0.02);
+}
+
+/* ================================
+   FORMULARIOS
+================================== */
+.form-control:focus,
+.form-select:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.15);
+}
+
+/* ================================
+   MODALES
+================================== */
+.modal-content {
+  border-radius: 16px;
+}
+
+.modal.show {
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-dialog {
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* ================================
+   NOTIFICACIONES
+================================== */
+.notificationItem {
+  transition: all 0.3s ease;
+}
+
+.notificationItem:hover {
+  background-color: rgba(13, 110, 253, 0.03) !important;
+}
+
+.notificationUnread {
+  background: linear-gradient(135deg, rgba(13, 110, 253, 0.08) 0%, rgba(13, 110, 253, 0.04) 100%);
+  border-left: 3px solid #0d6efd;
+}
+
+.notificationDropdown {
+  animation: slideDown 0.3s ease;
+}
+
+.notificationList::-webkit-scrollbar {
+  width: 6px;
+}
+
+.notificationList::-webkit-scrollbar-track {
+  background: #f8f9fa;
+}
+
+.notificationList::-webkit-scrollbar-thumb {
+  background: #0d6efd;
+  border-radius: 3px;
+}
+
+.notificationList::-webkit-scrollbar-thumb:hover {
+  background: #0b5ed7;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ================================
+   ZONA DE CARGA
+================================== */
+.uploadZone {
+  border-style: dashed !important;
+  background-color: #f8f9fa;
+}
+
+/* ================================
+   MEDIA QUERIES
+================================== */
+@media (max-width: 576px) {
+  .btn-primary:hover,
+  .btn-outline-primary:hover {
+    transform: none;
+  }
+
+  .modal-lg {
+    margin: 0.5rem;
+  }
+
+  .tabsContainer {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+  }
+
+  .nav-tabs .nav-link {
+    white-space: nowrap;
+  }
+
+  .notificationDropdown {
+    right: -50px !important;
+    width: 380px !important;
+  }
+}
+
+@media (max-width: 400px) {
+  .notificationDropdown {
+    right: -20px !important;
+    width: 350px !important;
+  }
+}
