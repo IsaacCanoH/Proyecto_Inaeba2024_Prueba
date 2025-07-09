@@ -11,7 +11,7 @@ const QRModal = ({ handleOpenCamera, handleCloseCamera, cameraActive, onScanSucc
     if (cameraActive && scannerRef.current && !html5QrCodeRef.current) {
       const config = {
         fps: 10,
-        qrbox: { width: 230, height: 230 }, // Forzamos una caja más pequeña
+        qrbox: { width: 200, height: 200 }, // Forzamos una caja más pequeña
         aspectRatio: 1.0,
         disableFlip: true, // Evita invertir imagen en cámaras frontales
         experimentalFeatures: {
