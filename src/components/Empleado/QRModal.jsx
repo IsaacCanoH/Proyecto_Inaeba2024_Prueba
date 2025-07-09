@@ -9,7 +9,15 @@ const QRModal = ({ handleOpenCamera, handleCloseCamera, cameraActive, onScanSucc
 
   useEffect(() => {
     if (cameraActive && scannerRef.current && !html5QrCodeRef.current) {
-      const config = { fps: 10, qrbox: { width: 230, height: 230 } }
+      const config = {
+        fps: 10,
+        qrbox: { width: 230, height: 230 }, // Forzamos una caja más pequeña
+        aspectRatio: 1.0,
+        disableFlip: true, // Evita invertir imagen en cámaras frontales
+        experimentalFeatures: {
+          useBarCodeDetectorIfSupported: true // Usa API nativa de detección más estricta
+        }
+      }
 
       html5QrCodeRef.current = new Html5Qrcode(scannerRef.current.id)
 
@@ -32,11 +40,7 @@ const QRModal = ({ handleOpenCamera, handleCloseCamera, cameraActive, onScanSucc
                   handleCloseCamera()
                 })
             }
-          },
-          // (error) => {
-          //   console.error(error);
-
-          // }
+          }
         )
         .catch((err) => {
           console.error("Error al iniciar el escáner:", err)
