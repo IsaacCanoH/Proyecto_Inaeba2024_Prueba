@@ -12,6 +12,8 @@
   align-items: center;
   justify-content: center;
   margin: 0 auto;
+  padding: 1rem;
+  box-sizing: border-box;
 }
 
 #qr-scanner-container {
@@ -20,6 +22,9 @@
   position: absolute;
   top: 0;
   left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #qr-scanner-container > video {
@@ -46,12 +51,15 @@
 
 @media (max-width: 576px) {
   .qr-scanner-wrapper {
-    max-height: 65vh;
-    aspect-ratio: 1 / 1;
+    max-height: 70vh;
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .qr-overlay {
-    width: 240px;
-    height: 240px;
+    width: 260px;
+    height: 260px;
   }
 }
