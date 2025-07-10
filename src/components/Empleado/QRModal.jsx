@@ -2,61 +2,69 @@ import { useEffect, useRef } from "react"
 import { Camera } from "lucide-react"
 import { Html5Qrcode } from "html5-qrcode"
 import './QRModal.css'
+import { capturePhotoFromFrontCamera } from "../../utils/capturePhoto"
 
 const QRModal = ({ handleOpenCamera, handleCloseCamera, cameraActive, onScanSuccess }) => {
   const scannerRef = useRef(null)
   const html5QrCodeRef = useRef(null)
+  const isRunningRef = useRef(false)
 
   useEffect(() => {
-    if (cameraActive && scannerRef.current && !html5QrCodeRef.current) {
-      const config = {
-        fps: 10,
-        qrbox: { width: 230, height: 230 }, // Forzamos una caja más pequeña
-        aspectRatio: 1.0,
-        disableFlip: true, // Evita invertir imagen en cámaras frontales
-        experimentalFeatures: {
-          useBarCodeDetectorIfSupported: true // Usa API nativa de detección más estricta
+    const startScanner = async () => {
+      if (cameraActive && scannerRef.current && !html5QrCodeRef.current) {
+        const config = { fps: 10, qrbox: { width: 230, height: 230 } }
+        const qrCode = new Html5Qrcode(scannerRef.current.id)
+        html5QrCodeRef.current = qrCode
+
+        try {
+          await qrCode.start(
+            { facingMode: "environment" },
+            config,
+            async (decodedText) => {
+              if (html5QrCodeRef.current && isRunningRef.current) {
+                try {
+                  await html5QrCodeRef.current.stop()
+                  await html5QrCodeRef.current.clear()
+                } catch (stopError) {
+                  console.warn("Error al detener después del escaneo:", stopError)
+                } finally {
+                  html5QrCodeRef.current = null
+                  isRunningRef.current = false
+                  onScanSuccess(decodedText)
+
+                  try {
+                    const fotoBase64 = await capturePhotoFromFrontCamera()
+                    console.log("📸 Foto capturada (base64):", fotoBase64)
+                    onScanSuccess(decodedText, fotoBase64)
+                  } catch (photoError) {
+                    console.error("❌ Error al capturar foto frontal:", photoError)
+                    onScanSuccess(decodedText, null)
+                  }
+                  handleCloseCamera()
+                }
+              }
+            }
+          )
+          isRunningRef.current = true
+        } catch (err) {
+          console.error("Error al iniciar el escáner:", err)
         }
       }
-
-      html5QrCodeRef.current = new Html5Qrcode(scannerRef.current.id)
-
-      html5QrCodeRef.current
-        .start(
-          { facingMode: "environment" },
-          config,
-          (decodedText) => {
-            if (html5QrCodeRef.current) {
-              html5QrCodeRef.current
-                .stop()
-                .then(() => {
-                  html5QrCodeRef.current.clear()
-                  html5QrCodeRef.current = null
-                  onScanSuccess(decodedText)
-                  handleCloseCamera()
-                })
-                .catch((err) => {
-                  console.error("Error al detener el escáner después de escanear:", err)
-                  handleCloseCamera()
-                })
-            }
-          }
-        )
-        .catch((err) => {
-          console.error("Error al iniciar el escáner:", err)
-        })
     }
 
+    startScanner()
+
     return () => {
-      if (html5QrCodeRef.current) {
+      if (html5QrCodeRef.current && isRunningRef.current) {
         html5QrCodeRef.current
           .stop()
-          .then(() => {
-            html5QrCodeRef.current.clear()
-            html5QrCodeRef.current = null
-          })
+          .then(() => html5QrCodeRef.current.clear())
           .catch((err) => {
-            console.error("Error al detener el escáner:", err)
+            console.warn("Error al detener el escáner al desmontar:", err)
+          })
+          .finally(() => {
+            html5QrCodeRef.current = null
+            isRunningRef.current = false
           })
       }
     }
@@ -71,7 +79,25 @@ const QRModal = ({ handleOpenCamera, handleCloseCamera, cameraActive, onScanSucc
               <Camera size={20} className="me-2" />
               Registrar Asistencia
             </h5>
-            <button type="button" className="btn-close btn-close-white" onClick={handleCloseCamera}></button>
+            <button
+              type="button"
+              className="btn-close btn-close-white"
+              onClick={() => {
+                if (html5QrCodeRef.current && isRunningRef.current) {
+                  html5QrCodeRef.current
+                    .stop()
+                    .then(() => html5QrCodeRef.current.clear())
+                    .catch((err) => console.warn("Error al cerrar cámara:", err))
+                    .finally(() => {
+                      html5QrCodeRef.current = null
+                      isRunningRef.current = false
+                      handleCloseCamera()
+                    })
+                } else {
+                  handleCloseCamera()
+                }
+              }}
+            ></button>
           </div>
           <div className="modal-body p-4 text-center">
             {!cameraActive ? (
